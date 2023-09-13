@@ -1,27 +1,29 @@
 /* eslint-disable react/prop-types */
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Form, Input, Select, Button, message } from "antd";
 import { EnvironmentOutlined } from "@ant-design/icons";
 import { createComplaint } from "../../../Helper/hooks/useMaisCidadeApi/useComplaint";
+import { listCategories } from "../../../Helper/hooks/useMaisCidadeApi/useCategories";
 
 const { Option } = Select;
 
-const CategoriaOptions = [
-  "Saúde",
-  "Segurança",
-  "Trânsito",
-  "Saneamento",
-  "Educação",
-  "Infraestrutura",
-  "Ambiental",
-  "Perturbação",
-];
+const ComplaintForm = ({ latitude, longitude, onSuccess }) => {
+  const [categories, setCategories] = useState([]);
 
-const ComplaintForm = ({ latitude, longitude }) => {
+  useEffect(() => {
+    fetchCategories();
+  }, []);
+
+  const fetchCategories = async () => {
+    const { data } = await listCategories();
+    setCategories(data);
+  };
+
   const onFinish = async (values) => {
     try {
       await createComplaint(values);
       message.success("Reclamação cadastrada com sucesso!");
+      onSuccess();
     } catch (error) {
       console.error(error);
       message.error("Denúncia não cadastrada!");
@@ -64,9 +66,9 @@ const ComplaintForm = ({ latitude, longitude }) => {
           ]}
         >
           <Select placeholder="Selecione a categoria">
-            {CategoriaOptions.map((categoria) => (
-              <Option key={categoria} value={1}>
-                {categoria}
+            {categories.map(({ id, name }) => (
+              <Option key={`${id}-category`} value={id}>
+                {name}
               </Option>
             ))}
           </Select>

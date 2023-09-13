@@ -10,7 +10,7 @@ const Protected = ({ children }) => {
   } = theme.useToken();
   
   return (
-    <Layout style={{ height: '100vh' }}>
+    <Layout>
       <Sider
         breakpoint="lg"
         collapsedWidth="0"

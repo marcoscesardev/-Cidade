@@ -40,4 +40,5 @@ jobs:
         gcloud run deploy mais-cidade-frontend \
           --image gcr.io/mais-cidade-398922/mais-cidade-frontend \
           --platform managed \
+          --region=us-central1 \
           --allow-unauthenticated 

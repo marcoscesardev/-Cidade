@@ -1,14 +1,17 @@
-# Use uma imagem Node.js como base
 FROM node:16
 
 WORKDIR /app
 
-COPY . .
+COPY package.json yarn.lock ./
 
 RUN yarn install
+
+COPY . .
 
 RUN yarn build
 
 EXPOSE 3000
 
-CMD ["yarn", "vite", "preview", "--port", "3000"]
+ENV PORT=3000
+
+CMD ["npx", "serve", "-s", "dist"]

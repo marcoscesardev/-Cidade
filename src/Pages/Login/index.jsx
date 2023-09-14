@@ -9,7 +9,9 @@ const Login = () => {
 
   const onFinish = async (values) => {
     try {
-      const { data: { access_token, ...user } } = await authProvider.signin(values);
+      const {
+        data: { access_token, ...user },
+      } = await authProvider.signin(values);
       window.localStorage.setItem("token", access_token);
       window.localStorage.setItem("user", JSON.stringify(user));
 
@@ -55,17 +57,17 @@ const Login = () => {
         </Form.Item>
 
         <Form.Item>
-        <Space wrap>
-          <Button
-            type="primary"
-            htmlType="submit"
-            className="login-form-button"
-          >
-            Entrar
-          </Button>
-          <p>Ou</p>
-          <a onClick={() => navigate("/sign-up")}>registre-se agora!</a>
-        </Space>
+          <Space wrap>
+            <Button
+              type="primary"
+              htmlType="submit"
+              className="login-form-button"
+            >
+              Entrar
+            </Button>
+            <p>Ou</p>
+            <a onClick={() => navigate("/sign-up")}>registre-se agora!</a>
+          </Space>
         </Form.Item>
       </Form>
     </div>

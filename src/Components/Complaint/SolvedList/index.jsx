@@ -1,4 +1,4 @@
-import { Timeline } from "antd";
+import { Alert, Timeline } from "antd";
 import { useEffect, useState } from "react";
 import { listResolvedComplaints } from "../../../Helper/hooks/useMaisCidadeApi/useComplaint";
 import { dateFormat } from "../../../Helper/transformData/dateFormat";
@@ -28,6 +28,11 @@ export const SolvedList = () => {
             <h3>{dateFormat(complaint?.createdAt)}</h3>
             <span>{complaint?.category?.name}</span>
             <p>{complaint?.description}</p>
+
+            <Alert
+              message={complaint?.resolution}
+              type="success"
+            />
           </>
         ),
       }))}

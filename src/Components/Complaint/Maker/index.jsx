@@ -16,7 +16,6 @@ import {
 } from "../../../Helper/hooks/useMaisCidadeApi/useRates";
 import { getCategoryIcon } from "../../../Helper/Constants/icons";
 import { authProvider } from "../../../Helper/authProvider";
-import Search from "antd/es/input/Search";
 
 const ComplaintMark = ({ complaintInfo }) => {
   const [complaintRate, setComplaintRate] = useState({});
@@ -53,6 +52,7 @@ const ComplaintMark = ({ complaintInfo }) => {
         resolution,
         solvedById: authProvider.me().id,
       });
+      window.dispatchEvent(new Event("complaintRefresh"));
       message.success("Reclamação resolvida com sucesso!");
     } catch (error) {
       console.error(error)

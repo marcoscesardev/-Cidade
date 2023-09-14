@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, Input, Button, Checkbox, message } from "antd";
+import { Form, Input, Button, Checkbox, message, Space } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import { authProvider } from "../../Helper/authProvider";
 import { useNavigate } from "react-router-dom";
@@ -55,6 +55,7 @@ const Login = () => {
         </Form.Item>
 
         <Form.Item>
+        <Space wrap>
           <Button
             type="primary"
             htmlType="submit"
@@ -62,7 +63,9 @@ const Login = () => {
           >
             Entrar
           </Button>
-          Ou <a onClick={() => navigate("/sign-up")}>registre-se agora!</a>
+          <p>Ou</p>
+          <a onClick={() => navigate("/sign-up")}>registre-se agora!</a>
+        </Space>
         </Form.Item>
       </Form>
     </div>

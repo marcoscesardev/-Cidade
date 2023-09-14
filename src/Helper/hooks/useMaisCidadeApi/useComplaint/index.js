@@ -20,7 +20,11 @@ export const listTopRatedComplaints = () => useMaisCidadeApi.get("complaint/top-
   },
 });
 
-export const listResolvedComplaints = () => useMaisCidadeApi.get("complaint/resolved")
+export const listResolvedComplaints = () => useMaisCidadeApi.get("complaint/resolved", {
+  headers: {
+    Authorization: localStorage.getItem("token"),
+  },
+})
 
 export const updateComplaint = (id, params) =>
   useMaisCidadeApi.put(`complaint/${id}`, params, {

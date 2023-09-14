@@ -97,7 +97,7 @@ const router = createBrowserRouter([
       },
       {
         path: "sign-up",
-        Component: SignUpPage,
+        Component: () => <ContainerCenter><SignUpPage /></ContainerCenter>,
       },
     ],
   },

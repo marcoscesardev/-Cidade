@@ -1,9 +1,12 @@
 /* eslint-disable react/prop-types */
 import { LikeOutlined, DislikeOutlined } from "@ant-design/icons";
 import { useEffect, useState } from "react";
-import { listComplaints } from "../../../Helper/hooks/useMaisCidadeApi/useComplaint";
+import {
+  listComplaints,
+  updateComplaint,
+} from "../../../Helper/hooks/useMaisCidadeApi/useComplaint";
 import { Marker, Popup } from "react-leaflet";
-import { Badge, Button, Space } from "antd";
+import { Badge, Button, Input, Space, message } from "antd";
 import L from "leaflet";
 import { dateFormat } from "../../../Helper/transformData/dateFormat";
 import {
@@ -12,6 +15,8 @@ import {
   listComplaintRates,
 } from "../../../Helper/hooks/useMaisCidadeApi/useRates";
 import { getCategoryIcon } from "../../../Helper/Constants/icons";
+import { authProvider } from "../../../Helper/authProvider";
+import Search from "antd/es/input/Search";
 
 const ComplaintMark = ({ complaintInfo }) => {
   const [complaintRate, setComplaintRate] = useState({});
@@ -27,10 +32,10 @@ const ComplaintMark = ({ complaintInfo }) => {
 
   const handleRate = async (rate) => {
     if (complaintRate?.userValuation) {
-      await deleteComplaintRate(complaintRate.userRateId)
+      await deleteComplaintRate(complaintRate.userRateId);
     }
 
-    const valuation = rate === "positive" ? 1 : -1
+    const valuation = rate === "positive" ? 1 : -1;
     if (valuation !== complaintRate?.userValuation) {
       await createComplaintRate({
         valuation,
@@ -40,6 +45,19 @@ const ComplaintMark = ({ complaintInfo }) => {
 
     window.dispatchEvent(new Event("complaintTopRatedRefresh"));
     await fetchComplaintRates();
+  };
+
+  const setResolution = async (resolution) => {
+    try {
+      await updateComplaint(complaintInfo.id, {
+        resolution,
+        solvedById: authProvider.me().id,
+      });
+      message.success("Reclamação resolvida com sucesso!");
+    } catch (error) {
+      console.error(error)
+      message.error("Ocorreu um erro ao tentar atualizar a reclamação!");
+    }
   };
 
   return (
@@ -67,6 +85,15 @@ const ComplaintMark = ({ complaintInfo }) => {
           />
         </Badge>
       </Space>
+      {(complaintInfo?.resolution || authProvider.isUserRpp()) && (
+        <Input.TextArea
+          disabled={!authProvider.isUserRpp()}
+          onKeyDown={({ shiftKey, key, target }) =>
+            key === "Enter" && !shiftKey && setResolution(target.value)
+          }
+          placeholder="Escreva a resolução"
+        />
+      )}
     </Popup>
   );
 };
@@ -80,7 +107,7 @@ const Complaint = ({ complaintInfo }) => {
     iconAnchor: [25, 55],
     popupAnchor: [0, 0],
     shadowSize: [41, 41],
-  })
+  });
 
   return (
     <Marker

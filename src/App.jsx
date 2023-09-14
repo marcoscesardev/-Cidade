@@ -1,10 +1,20 @@
-import './App.css'
-import Router from './Helper/Router'
+import { ConfigProvider } from "antd";
+import "./App.css";
+import Router from "./Helper/Router";
 
 const App = () => {
   return (
-    <Router />
+    <ConfigProvider
+      theme={{
+        token: {
+          colorPrimary: "#dc4167",
+          colorBgSpotlight: "#dc4167",
+        },
+      }}
+    >
+      <Router />
+    </ConfigProvider>
   );
 };
 
-export default App
+export default App;

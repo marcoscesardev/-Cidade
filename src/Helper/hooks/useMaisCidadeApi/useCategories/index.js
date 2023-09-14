@@ -6,3 +6,11 @@ export const listCategories = () =>
       Authorization: localStorage.getItem("token"),
     },
   });
+
+export const createCategory = (params) => {
+  return useMaisCidadeApi.post("categories", params, {
+    headers: {
+      Authorization: localStorage.getItem("token"),
+    },
+  });
+};

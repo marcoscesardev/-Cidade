@@ -10,9 +10,11 @@ import {
 import ProtectedPage from "../../Layout/Protected";
 import HomePage from "../../Pages/Home";
 import ContainerCenter from "../../Layout/Container/Center";
+import { Category } from "../../Pages/Category";
+import { Users } from "../../Pages/Users";
 
 async function loginLoader() {
-  if (authProvider.isAuthenticated) {
+  if (authProvider.isAuthenticated()) {
     return redirect("/");
   }
   return null;
@@ -41,7 +43,7 @@ async function loginAction({ request }) {
 }
 
 function protectedLoader({ request }) {
-  if (!authProvider.isAuthenticated) {
+  if (!authProvider.isAuthenticated()) {
     let params = new URLSearchParams();
     params.set("from", new URL(request.url).pathname);
     return redirect("/login?" + params.toString());
@@ -58,13 +60,23 @@ const Protected = (children) => {
   );
 }
 
+const adminPages = authProvider.isUserAdmin() && [
+  {
+    path: 'categories',
+    loader: protectedLoader,
+    Component: () => Protected(<Category />),
+  },
+  {
+    path: 'users',
+    loader: protectedLoader,
+    Component: () => Protected(<Users />),
+  },
+] || [];
+
 const router = createBrowserRouter([
   {
     id: "root",
     path: "/",
-    loader() {
-      return { user: "marcos" };
-    },
     children: [
       {
         index: true,
@@ -76,6 +88,7 @@ const router = createBrowserRouter([
         loader: protectedLoader,
         Component: () => Protected(<HomePage />),
       },
+      ...adminPages,
       {
         path: "login",
         action: loginAction,

@@ -8,7 +8,7 @@ export const createComplaint = (params) =>
   });
 
 export const listComplaints = () =>
-  useMaisCidadeApi.get("complaint", {
+  useMaisCidadeApi.get("complaint?categoryId=13&category_id=13", {
     headers: {
       Authorization: localStorage.getItem("token"),
     },
@@ -19,3 +19,12 @@ export const listTopRatedComplaints = () => useMaisCidadeApi.get("complaint/top-
     Authorization: localStorage.getItem("token"),
   },
 });
+
+export const listResolvedComplaints = () => useMaisCidadeApi.get("complaint/resolved")
+
+export const updateComplaint = (id, params) =>
+  useMaisCidadeApi.patch(`complaint/${id}`, params, {
+    headers: {
+      Authorization: localStorage.getItem("token"),
+    },
+  });

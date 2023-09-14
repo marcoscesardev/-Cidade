@@ -16,7 +16,6 @@ function Home() {
   };
 
   const Content = styled("div")`
-    
     width: calc(100vw - 80px);
 
     @media (min-width: 768px) {
@@ -31,7 +30,6 @@ function Home() {
           <Content
             style={{
               height: "calc(100vh - 200px)",
-              // width: "calc(100vw - 80px)",
             }}
           >
             {position.lat && position.lng && (

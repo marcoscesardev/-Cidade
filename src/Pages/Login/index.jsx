@@ -9,8 +9,10 @@ const Login = () => {
 
   const onFinish = async (values) => {
     try {
-      const { data: { access_token } } = await authProvider.signin(values);
+      const { data: { access_token, ...user } } = await authProvider.signin(values);
       window.localStorage.setItem("token", access_token);
+      window.localStorage.setItem("user", JSON.stringify(user));
+
       message.success("Login realizado com sucesso!");
       window.location.reload();
     } catch (error) {

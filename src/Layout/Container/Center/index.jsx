@@ -7,7 +7,13 @@ const ContainerCenter = ({ children }) => {
   } = theme.useToken();
 
   return (
-    <Row style={{ height: "100vh", background: colorBgSpotlight }}>
+    <Row
+      style={{
+        height: "100vh",
+        background: colorBgSpotlight,
+        placeContent: "center",
+      }}
+    >
       <Col
         style={{
           alignSelf: "center",
@@ -15,9 +21,9 @@ const ContainerCenter = ({ children }) => {
           background: colorBgContainer,
           padding: 20,
           borderRadius: 10,
+          maxWidth: 600,
+          width: "100%",
         }}
-        span={12}
-        offset={6}
       >
         <img
           style={{ height: "300px" }}

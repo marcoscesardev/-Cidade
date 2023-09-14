@@ -1,1 +1,1 @@
-export const BASE_URL_API = import.meta.env.VITE_BASE_URL_API
+export const BASE_URL_API = "https://maiscidade-backend-yd6o4p7t4a-uc.a.run.app";

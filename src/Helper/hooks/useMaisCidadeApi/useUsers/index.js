@@ -3,7 +3,7 @@ import { useMaisCidadeApi } from "..";
 export const createUser = (params) => useMaisCidadeApi.post("users", params);
 
 export const updateUser = (id, params) =>
-  useMaisCidadeApi.patch(`users/${id}`, params, {
+  useMaisCidadeApi.put(`users/${id}`, params, {
     headers: {
       Authorization: localStorage.getItem("token"),
     },

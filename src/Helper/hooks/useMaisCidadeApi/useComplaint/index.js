@@ -23,7 +23,7 @@ export const listTopRatedComplaints = () => useMaisCidadeApi.get("complaint/top-
 export const listResolvedComplaints = () => useMaisCidadeApi.get("complaint/resolved")
 
 export const updateComplaint = (id, params) =>
-  useMaisCidadeApi.patch(`complaint/${id}`, params, {
+  useMaisCidadeApi.put(`complaint/${id}`, params, {
     headers: {
       Authorization: localStorage.getItem("token"),
     },

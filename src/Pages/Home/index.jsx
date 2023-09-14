@@ -8,6 +8,7 @@ import { RecentList } from "../../Components/Complaint/RecentsList";
 import { Complaints } from "../../Components/Complaint/Maker";
 import { ComplaintCreate } from "../../Components/Complaint/Create";
 import { ComplaintTopRated } from "../../Components/Complaint/TopRated";
+import { SolvedList } from "../../Components/Complaint/SolvedList";
 
 function Home() {
   const position = {
@@ -57,7 +58,7 @@ function Home() {
               items={[
                 {
                   key: "1",
-                  label: "Demandas mais solicitadas",
+                  label: <b>Demandas mais solicitadas</b>,
                   children: <ComplaintTopRated />
                 },
                 {
@@ -65,9 +66,14 @@ function Home() {
                   label: "Últimas reclamações",
                   children: <RecentList />,
                 },
+                {
+                  key: "3",
+                  label: "Demandas resolvidas",
+                  children: <SolvedList />,
+                },
               ]}
               bordered={false}
-              defaultActiveKey={["1", "2"]}
+              defaultActiveKey={["1"]}
             />
           </Row>
         </Col>

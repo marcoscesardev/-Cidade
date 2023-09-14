@@ -93,7 +93,7 @@ const Protected = ({ children }) => {
             textAlign: "center",
           }}
         >
-          Ant Design ©2023 Created by Ant UED
+          +Cidade ©2023
         </Footer>
       </Layout>
     </Layout>
